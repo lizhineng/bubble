@@ -2,6 +2,8 @@
 
 namespace Zhineng\Bubble\Work\Messages;
 
+use Zhineng\Bubble\Work\Contracts\Message;
+
 class TextMessage implements Message
 {
     public function __construct(

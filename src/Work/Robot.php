@@ -4,7 +4,7 @@ namespace Zhineng\Bubble\Work;
 
 use GuzzleHttp\Client;
 use Zhineng\Bubble\Support\Response;
-use Zhineng\Bubble\Work\Messages\Message;
+use Zhineng\Bubble\Work\Contracts\Message;
 
 class Robot
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zhineng\Bubble\Work\Messages;
+namespace Zhineng\Bubble\Work\Contracts;
 
 interface Message
 {

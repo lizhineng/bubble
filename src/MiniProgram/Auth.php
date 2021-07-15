@@ -20,6 +20,12 @@ class Auth
         ]);
     }
 
+    /**
+     * Retrieve access token for calling backend APIs.
+     *
+     * @return \Zhineng\Bubble\Support\Response
+     * @link https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/access-token/auth.getAccessToken.html
+     */
     public function token()
     {
         return $this->app->request('GET', '/cgi-bin/token', [

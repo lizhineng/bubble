@@ -12,7 +12,7 @@ class RobotTest extends TestCase
     {
         $robot = $this->robot('__key');
 
-        $payload = ['msgtype' => 'text', 'content' => 'foo'];
+        $payload = ['msgtype' => 'text', 'text' => ['content' => 'foo']];
 
         $robot->expects($this->once())
             ->method('request')
@@ -24,7 +24,7 @@ class RobotTest extends TestCase
         $robot->sendRaw($payload);
     }
 
-    public function test_sends_a_text_message()
+    public function test_sends_a_message_from_instance()
     {
         $robot = $this->robot('__key');
 
