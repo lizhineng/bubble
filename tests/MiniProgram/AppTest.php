@@ -34,7 +34,7 @@ class AppTest extends TestCase
 
     public function test_retrieves_encrypter()
     {
-        $encrypter = $this->makeApp()->enctyper('HyVFkGl5F5OQWJZZaNzBBg==');
+        $encrypter = $this->makeApp()->encrypter('HyVFkGl5F5OQWJZZaNzBBg==');
         $this->assertInstanceOf(Encrypter::class, $encrypter);
     }
 

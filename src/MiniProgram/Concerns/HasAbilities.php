@@ -16,7 +16,7 @@ trait HasAbilities
         'subscribeMessage' => SubscribeMessage::class,
     ];
 
-    public function enctyper(string $sessionKey): Encrypter
+    public function encrypter(string $sessionKey): Encrypter
     {
         return (new Encrypter($sessionKey))->withApp($this);
     }

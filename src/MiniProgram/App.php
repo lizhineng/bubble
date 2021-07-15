@@ -14,9 +14,9 @@ class App
     /**
      * The Guzzle client instance.
      *
-     * @var Client
+     * @var Client|null
      */
-    protected Client $client;
+    protected ?Client $client = null;
 
     public function __construct(
         protected string $appId,
