@@ -2,6 +2,7 @@
 
 namespace Zhineng\Bubble\MiniProgram;
 
+use BadMethodCallException;
 use GuzzleHttp\Client;
 use Zhineng\Bubble\MiniProgram\Concerns\HasAbilities;
 use Zhineng\Bubble\MiniProgram\Concerns\HasCache;
@@ -68,5 +69,16 @@ class App
         $this->client = $client;
 
         return $this;
+    }
+
+    public function __call(string $method, array $parameters)
+    {
+        if ($this->hasAbility($method)) {
+            return $this->$method;
+        }
+
+        throw new BadMethodCallException(sprintf(
+            'Call to undefined method %s::%s()', static::class, $method
+        ));
     }
 }

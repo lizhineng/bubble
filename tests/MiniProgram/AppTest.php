@@ -25,6 +25,11 @@ class AppTest extends TestCase
         $this->assertInstanceOf($class, $this->makeApp()->{$slug});
     }
 
+    public function test_retrieves_ability_through_method()
+    {
+        $this->assertInstanceOf(Auth::class, $this->makeApp()->auth());
+    }
+
     public function test_retrieves_unsupported_ability()
     {
         $this->expectException(InvalidArgumentException::class);
