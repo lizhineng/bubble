@@ -13,7 +13,7 @@ trait HasAbilities
 
     protected array $abilities = [
         'auth' => Auth::class,
-        'subscribeMessage' => SubscribeMessage::class,
+        'subscribe_message' => SubscribeMessage::class,
     ];
 
     public function encrypter(string $sessionKey): Encrypter

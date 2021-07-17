@@ -74,7 +74,7 @@ class AppTest extends TestCase
     {
         return [
             'auth' => ['auth', Auth::class],
-            'subscription message' => ['subscribeMessage', SubscribeMessage::class],
+            'subscription message' => ['subscribe_message', SubscribeMessage::class],
         ];
     }
 
