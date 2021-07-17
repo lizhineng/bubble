@@ -35,15 +35,17 @@ class App
 
     public function token(): string
     {
-        $response = $this->ability('auth')->token();
-
         if (! $this->hasCache()) {
+            $response = $this->ability('auth')->token();
+
             return $response->json('access_token');
         }
 
-        return $this->cache()->remember(
-            $this->cacheKeyFor('token'), $response->json('expires_in'), fn () => $response->json('access_token')
-        );
+        return $this->cache()->remember($this->cacheKeyFor('token'), 7200, function () {
+            $response = $this->ability('auth')->token();
+
+            return $response->json('access_token');
+        });
     }
 
     public function request(string $method, $uri = '', array $options = []): Response
