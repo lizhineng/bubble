@@ -4,11 +4,13 @@ namespace Zhineng\Bubble\MiniProgram;
 
 use BadMethodCallException;
 use GuzzleHttp\Client;
+use Zhineng\Bubble\Contracts\CommunicateWithApi;
+use Zhineng\Bubble\Http\Factory;
 use Zhineng\Bubble\MiniProgram\Concerns\HasAbilities;
 use Zhineng\Bubble\MiniProgram\Concerns\HasCache;
 use Zhineng\Bubble\Support\Response;
 
-class App
+class App implements CommunicateWithApi
 {
     use HasAbilities, HasCache;
 
@@ -19,10 +21,24 @@ class App
      */
     protected ?Client $client = null;
 
+    protected ?Factory $http = null;
+
     public function __construct(
         protected string $appId,
         protected string $appSecret
-    ) {}
+    ) {
+        //
+    }
+
+    public static function make(string $appId, string $appSecret)
+    {
+        return new static($appId, $appSecret);
+    }
+
+    public function endpoint(): string
+    {
+        return 'https://api.weixin.qq.com';
+    }
 
     public function appId(): string
     {
@@ -54,6 +70,18 @@ class App
         $response = $this->client()->request($method, $uri, $options);
 
         return new Response($response);
+    }
+
+    public function http()
+    {
+        return $this->http = $this->http ?: new Factory;
+    }
+
+    public function httpUsing($factory)
+    {
+        $this->http = $factory;
+
+        return $this;
     }
 
     public function client(): Client
