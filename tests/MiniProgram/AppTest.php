@@ -2,12 +2,9 @@
 
 namespace Zhineng\Bubble\Tests\MiniProgram;
 
-use GuzzleHttp\Client;
 use Illuminate\Cache\ArrayStore;
 use Illuminate\Cache\Repository;
 use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
-use Zhineng\Bubble\MiniProgram\App;
 use Zhineng\Bubble\MiniProgram\AuthAbility;
 use Zhineng\Bubble\MiniProgram\Encrypter;
 use Zhineng\Bubble\MiniProgram\SubscribeMessageAbility;

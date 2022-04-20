@@ -2,12 +2,12 @@
 
 namespace Zhineng\Bubble\MiniProgram;
 
-use Zhineng\Bubble\Contracts\CommunicateWithApi;
+use Zhineng\Bubble\Contracts\ApiClient;
 
 abstract class Ability
 {
     public function __construct(
-        protected CommunicateWithApi $app
+        protected ApiClient $app
     ) {
         //
     }

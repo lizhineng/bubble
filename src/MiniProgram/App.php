@@ -2,17 +2,14 @@
 
 namespace Zhineng\Bubble\MiniProgram;
 
-use Zhineng\Bubble\Contracts\CommunicateWithApi;
-use Zhineng\Bubble\Http\Factory;
-use Zhineng\Bubble\Http\PendingRequest;
+use Zhineng\Bubble\ManagesHttp;
+use Zhineng\Bubble\Contracts\ApiClient;
 use Zhineng\Bubble\MiniProgram\Concerns\HasAbilities;
 use Zhineng\Bubble\MiniProgram\Concerns\HasCache;
 
-class App implements CommunicateWithApi
+class App implements ApiClient
 {
-    use HasAbilities, HasCache;
-
-    protected ?Factory $http = null;
+    use ManagesHttp, HasAbilities, HasCache;
 
     public function __construct(
         protected string $appId,
@@ -26,7 +23,7 @@ class App implements CommunicateWithApi
         return new static($appId, $appSecret);
     }
 
-    public function endpoint(): string
+    public function apiEndpoint(): string
     {
         return 'https://api.weixin.qq.com';
     }
@@ -57,22 +54,5 @@ class App implements CommunicateWithApi
         return $this->ability('auth')
             ->token()
             ->json('access_token');
-    }
-
-    public function http()
-    {
-        return $this->http = $this->http ?: new Factory;
-    }
-
-    public function httpUsing($factory)
-    {
-        $this->http = $factory;
-
-        return $this;
-    }
-
-    public function newRequest(): PendingRequest
-    {
-        return $this->http()->baseUrl($this->endpoint());
     }
 }

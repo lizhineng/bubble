@@ -8,7 +8,9 @@ class TextMessage implements Message
 {
     public function __construct(
         protected string $content
-    ) {}
+    ) {
+        //
+    }
 
     public function type(): string
     {

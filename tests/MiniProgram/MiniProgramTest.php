@@ -3,21 +3,11 @@
 namespace Zhineng\Bubble\Tests\MiniProgram;
 
 use Mockery as m;
-use PHPUnit\Framework\TestCase;
-use Zhineng\Bubble\Http\Factory;
 use Zhineng\Bubble\MiniProgram\App;
+use Zhineng\Bubble\Tests\HttpTest;
 
-abstract class MiniProgramTest extends TestCase
+abstract class MiniProgramTest extends HttpTest
 {
-    protected Factory $http;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->http = new Factory;
-    }
-
     public function fakeApp(string $appId = '__fake_app', string $appSecret = '__fake_secret'): App
     {
         $app = m::mock(App::class, [$appId, $appSecret])->makePartial();

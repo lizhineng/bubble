@@ -2,47 +2,40 @@
 
 namespace Zhineng\Bubble\Tests\Work;
 
-use PHPUnit\Framework\TestCase;
+use Zhineng\Bubble\Tests\HttpTest;
 use Zhineng\Bubble\Work\Messages\TextMessage;
 use Zhineng\Bubble\Work\Robot;
 
-class RobotTest extends TestCase
+class RobotTest extends HttpTest
 {
     public function test_sends_a_raw_message()
     {
         $robot = $this->robot('__key');
 
-        $payload = ['msgtype' => 'text', 'text' => ['content' => 'foo']];
+        $robot->sendRaw(['foo' => 'bar']);
 
-        $robot->expects($this->once())
-            ->method('request')
-            ->with('POST', '/cgi-bin/webhook/send', [
-                'query' => ['key' => '__key'],
-                'json' => $payload,
-            ]);
-
-        $robot->sendRaw($payload);
+        $this->http->assertSent(function ($request) {
+            return $request->method() === 'POST'
+                && $request->url() === 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=__key'
+                && $request['foo'] === 'bar';
+        });
     }
 
     public function test_sends_a_message_from_instance()
     {
-        $robot = $this->robot('__key');
+        $this->robot('__key')->send(new TextMessage('foo'));
 
-        $robot->expects($this->once())
-            ->method('request')
-            ->with('POST', '/cgi-bin/webhook/send', [
-                'query' => ['key' => '__key'],
-                'json' => ['msgtype' => 'text', 'text' => ['content' => 'foo']],
-            ]);
-
-        $robot->send(new TextMessage('foo'));
+        $this->http->assertSent(function ($request) {
+            return $request->method() === 'POST'
+                && $request->url() === 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=__key'
+                && $request['msgtype'] === 'text'
+                && $request['text']['content'] === 'foo';
+        });
     }
 
     protected function robot(string $key)
     {
-        return $this->getMockBuilder(Robot::class)
-            ->setConstructorArgs([$key])
-            ->onlyMethods(['request'])
-            ->getMock();
+        return (new Robot($key))
+            ->httpUsing($this->http->fake());
     }
 }

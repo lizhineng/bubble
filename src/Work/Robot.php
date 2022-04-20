@@ -3,50 +3,40 @@
 namespace Zhineng\Bubble\Work;
 
 use GuzzleHttp\Client;
-use Zhineng\Bubble\Support\Response;
+use Zhineng\Bubble\Contracts\ApiClient;
+use Zhineng\Bubble\ManagesHttp;
 use Zhineng\Bubble\Work\Contracts\Message;
 
-class Robot
+class Robot implements ApiClient
 {
+    use ManagesHttp;
+
     public function __construct(
         protected string $key
-    ) {}
+    ) {
+        //
+    }
 
     public function key(): string
     {
         return $this->key;
     }
 
-    public function sendRaw(array $payload): Response
+    public function apiEndpoint(): string
     {
-        return $this->request('POST', '/cgi-bin/webhook/send', [
-            'query' => [
-                'key' => $this->key(),
-            ],
-            'json' => $payload,
-        ]);
+        return 'https://qyapi.weixin.qq.com';
     }
 
-    public function send(Message $message): Response
+    public function sendRaw(array $data)
+    {
+        return $this->newRequest()->post('/cgi-bin/webhook/send?key='.$this->key, $data);
+    }
+
+    public function send(Message $message)
     {
         return $this->sendRaw([
             'msgtype' => $message->type(),
             $message->type() => $message->payload(),
-        ]);
-    }
-
-    public function request(string $method, $uri = '', array $options = []): Response
-    {
-        $response = $this->client()->request($method, $uri, $options);
-
-        return new Response($response);
-    }
-
-    public function client(): Client
-    {
-        return new Client([
-            'base_uri' => 'https://qyapi.weixin.qq.com',
-            'timeout' => 2.0,
         ]);
     }
 }
