@@ -5,9 +5,9 @@ namespace Zhineng\Bubble\Tests\MiniProgram;
 use stdClass;
 use Zhineng\Bubble\MiniProgram\Encrypter;
 
-class EncrypterTest extends UnitTest
+class EncrypterTest extends MiniProgramTest
 {
-    public function test_decrypts()
+    public function test_decryption()
     {
         $decrypted = $this->encrypter($this->key())->decrypt($this->encryptedPayload());
         $this->assertInstanceOf(stdClass::class, $decrypted);
@@ -16,8 +16,9 @@ class EncrypterTest extends UnitTest
 
     public function test_verifies_watermark()
     {
-        $app = $this->makeMiniProgram('wx4f4bc4dec97d474b');
-        $this->encrypter($this->key())->withApp($app)->decrypt($this->encryptedPayload());
+        $this->encrypter($this->key())
+            ->withApp($this->fakeApp('wx4f4bc4dec97d474b'))
+            ->decrypt($this->encryptedPayload());
     }
 
     /**

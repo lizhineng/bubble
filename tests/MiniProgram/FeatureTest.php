@@ -11,6 +11,8 @@ abstract class FeatureTest extends TestCase
 {
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->setUpContainer();
         $this->setUpConfigRepository();
     }

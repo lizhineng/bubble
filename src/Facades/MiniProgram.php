@@ -7,7 +7,7 @@ use Zhineng\Bubble\MiniProgram\MiniProgramManager;
 
 /**
  * @method static \Zhineng\Bubble\MiniProgram\App using(string $name)
- * @method static \Zhineng\Bubble\MiniProgram\Auth auth()
+ * @method static \Zhineng\Bubble\MiniProgram\AuthAbility auth()
  * @method static \Zhineng\Bubble\MiniProgram\Encrypter encrypter(string $sessionKey)
  */
 class MiniProgram extends Facade

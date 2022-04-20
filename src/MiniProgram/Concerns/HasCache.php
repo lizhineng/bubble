@@ -6,7 +6,7 @@ use Illuminate\Contracts\Cache\Repository;
 
 trait HasCache
 {
-    protected Repository $cache;
+    protected ?Repository $cache = null;
 
     public function cacheUsing(Repository $cache): self
     {
@@ -15,7 +15,7 @@ trait HasCache
         return $this;
     }
 
-    public function cache(): Repository
+    public function cache(): ?Repository
     {
         return $this->cache;
     }
@@ -25,8 +25,8 @@ trait HasCache
         return isset($this->cache);
     }
 
-    public function cacheKeyFor(string $item): string
+    public function cacheKeyFor(string $key): string
     {
-        return sprintf('bubble.mini_programs.%s.%s', $this->appId(), $item);
+        return sprintf('bubble.mini_programs.%s.%s', $this->appId(), $key);
     }
 }

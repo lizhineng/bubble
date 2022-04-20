@@ -2,21 +2,8 @@
 
 namespace Zhineng\Bubble\MiniProgram;
 
-use Zhineng\Bubble\Contracts\CommunicateWithApi;
-
-class PhoneNumberAbility
+class PhoneNumberAbility extends Ability
 {
-    public function __construct(
-        protected CommunicateWithApi $app
-    ) {
-        //
-    }
-
-    public static function make(App $app)
-    {
-        return new static($app);
-    }
-
     /**
      * Retrieve phone number by given code.
      *
@@ -26,8 +13,7 @@ class PhoneNumberAbility
      */
     public function get(string $code)
     {
-        return $this->app->http()
-            ->baseUrl($this->app->endpoint())
-            ->post('/wxa/business/getuserphonenumber', compact('code'));
+        return $this->app->newRequest()
+            ->post('/wxa/business/getuserphonenumber?access_token='.$this->app->token(), compact('code'));
     }
 }
