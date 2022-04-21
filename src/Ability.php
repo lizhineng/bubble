@@ -1,6 +1,6 @@
 <?php
 
-namespace Zhineng\Bubble\MiniProgram;
+namespace Zhineng\Bubble;
 
 use Zhineng\Bubble\Contracts\ApiClient;
 
@@ -12,7 +12,7 @@ abstract class Ability
         //
     }
 
-    public static function make(App $app)
+    public static function make(ApiClient $app)
     {
         return new static($app);
     }

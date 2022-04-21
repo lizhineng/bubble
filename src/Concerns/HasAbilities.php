@@ -1,26 +1,13 @@
 <?php
 
-namespace Zhineng\Bubble\MiniProgram\Concerns;
+namespace Zhineng\Bubble\Concerns;
 
 use InvalidArgumentException;
-use Zhineng\Bubble\MiniProgram\Ability;
-use Zhineng\Bubble\MiniProgram\AuthAbility;
-use Zhineng\Bubble\MiniProgram\Encrypter;
-use Zhineng\Bubble\MiniProgram\SubscribeMessageAbility;
+use Zhineng\Bubble\Ability;
 
 trait HasAbilities
 {
     protected array $resolved = [];
-
-    protected array $abilities = [
-        'auth' => AuthAbility::class,
-        'subscribe_message' => SubscribeMessageAbility::class,
-    ];
-
-    public function encrypter(string $sessionKey): Encrypter
-    {
-        return (new Encrypter($sessionKey))->withApp($this);
-    }
 
     public function ability(string $ability)
     {
@@ -39,7 +26,7 @@ trait HasAbilities
     protected function resolve(string $ability): Ability
     {
         if (! isset($this->abilities[$ability])) {
-            throw new InvalidArgumentException("Mini program does not support ability [{$ability}].");
+            throw new InvalidArgumentException("Unsupported ability [{$ability}].");
         }
 
         return new $this->abilities[$ability]($this);
@@ -50,5 +37,7 @@ trait HasAbilities
         if ($this->hasAbility($name)) {
             return $this->ability($name);
         }
+
+        return null;
     }
 }

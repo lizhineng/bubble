@@ -2,6 +2,8 @@
 
 namespace Zhineng\Bubble\MiniProgram;
 
+use Zhineng\Bubble\Ability;
+
 class SubscribeMessageAbility extends Ability
 {
     /**

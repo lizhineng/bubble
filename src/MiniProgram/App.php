@@ -4,12 +4,17 @@ namespace Zhineng\Bubble\MiniProgram;
 
 use Zhineng\Bubble\ManagesHttp;
 use Zhineng\Bubble\Contracts\ApiClient;
-use Zhineng\Bubble\MiniProgram\Concerns\HasAbilities;
+use Zhineng\Bubble\Concerns\HasAbilities;
 use Zhineng\Bubble\MiniProgram\Concerns\HasCache;
 
 class App implements ApiClient
 {
     use ManagesHttp, HasAbilities, HasCache;
+
+    protected array $abilities = [
+        'auth' => AuthAbility::class,
+        'subscribe_message' => SubscribeMessageAbility::class,
+    ];
 
     public function __construct(
         protected string $appId,
@@ -36,6 +41,11 @@ class App implements ApiClient
     public function appSecret(): string
     {
         return $this->appSecret;
+    }
+
+    public function encrypter(string $sessionKey): Encrypter
+    {
+        return (new Encrypter($sessionKey))->withApp($this);
     }
 
     public function token(): string

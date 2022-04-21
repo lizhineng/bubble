@@ -2,6 +2,24 @@
 
 return [
 
+    /*
+    |--------------------------------------------------------------------------
+    | WeChat Official Accounts
+    |--------------------------------------------------------------------------
+    |
+    | ...
+    |
+    */
+
+    'official_accounts' => [
+
+        'default' => [
+            'appid' => env('WECHAT_OFFICIAL_ACCOUNT_APPID'),
+            'secret' => env('WECHAT_OFFICIAL_ACCOUNT_SECRET'),
+        ],
+
+    ],
+
     'mini_programs' => [
 
         'default' => [

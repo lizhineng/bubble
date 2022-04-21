@@ -22,7 +22,7 @@ class AppTest extends MiniProgramTest
     public function test_unsupported_ability_resolution()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Mini program does not support ability [not-exists].');
+        $this->expectExceptionMessage('Unsupported ability [not-exists].');
         $this->fakeApp()->ability('not-exists');
     }
 

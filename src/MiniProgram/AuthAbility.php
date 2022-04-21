@@ -2,6 +2,7 @@
 
 namespace Zhineng\Bubble\MiniProgram;
 
+use Zhineng\Bubble\Ability;
 use Zhineng\Bubble\Http\Response;
 
 class AuthAbility extends Ability
