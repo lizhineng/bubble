@@ -60,9 +60,9 @@ class SubscribeMessageAbilityTest extends MiniProgramTest
     {
         SubscribeMessageAbility::make($app = $this->fakeApp())
             ->newMessageFromTemplate('foo')
-            ->version(MiniProgramState::Developer)
+            ->version(MiniProgramState::DEVELOPER)
             ->sendTo('openid');
 
-        $app->http()->assertSent(fn ($request) => $request['miniprogram_state'] === MiniProgramState::Developer->value);
+        $app->http()->assertSent(fn ($request) => $request['miniprogram_state'] === MiniProgramState::DEVELOPER);
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Zhineng\Bubble\MiniProgram;
 
-enum MiniProgramState: string
+class MiniProgramState
 {
-    case Developer = 'developer';
-    case Trial = 'trial';
-    case Formal = 'formal';
+    const DEVELOPER = 'developer';
+    const TRAIL = 'trial';
+    const FORMAL = 'formal';
 }

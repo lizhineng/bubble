@@ -10,7 +10,7 @@ class SubscribeMessageSender
 
     protected ?string $lang = null;
 
-    protected ?MiniProgramState $version = null;
+    protected ?string $version = null;
 
     public function __construct(
         protected SubscribeMessageAbility $ability,
@@ -52,7 +52,7 @@ class SubscribeMessageSender
         return $this;
     }
 
-    public function version(MiniProgramState $state)
+    public function version(string $state)
     {
         $this->version = $state;
 
