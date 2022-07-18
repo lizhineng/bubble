@@ -11,4 +11,9 @@ class Response
     ) {
         //
     }
+
+    public function toPsrResponse(): ResponseInterface
+    {
+        return $this->response;
+    }
 }
