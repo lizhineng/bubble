@@ -2,6 +2,7 @@
 
 namespace Zhineng\Bubble\Concerns;
 
+use BadMethodCallException;
 use InvalidArgumentException;
 use Zhineng\Bubble\Ability;
 
@@ -39,5 +40,16 @@ trait HasAbilities
         }
 
         return null;
+    }
+
+    public function __call(string $method, array $arguments)
+    {
+        if ($this->hasAbility($method)) {
+            return $this->$method;
+        }
+
+        throw new BadMethodCallException(sprintf(
+            'Call to undefined method %s::%s()', static::class, $method
+        ));
     }
 }
